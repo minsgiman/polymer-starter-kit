@@ -27,6 +27,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <template>
     <style>
       :host {
+        font-family: 'Roboto', 'Noto', sans-serif;
+        -webkit-font-smoothing: antialiased;
+
         --app-primary-color: #4285f4;
         --app-secondary-color: black;
 
@@ -48,7 +51,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       .drawer-list a {
         display: block;
 
-        padding: 0 16px;
+        padding: 0 26px;
 
         text-decoration: none;
 
@@ -58,9 +61,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       .drawer-list a.iron-selected {
-        color: black;
-
+        color: #ff4081;
         font-weight: bold;
+      }
+
+      .drawer-list a span {
+        padding: 0 15px;
       }
     </style>
 
@@ -76,18 +82,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <app-drawer>
         <app-toolbar>Menu</app-toolbar>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-         <a name="view1" href="/view1">
+         <a name="calendar" href="/calendar">
            <iron-icon class="Navigation-icon" icon="perm-contact-calendar"></iron-icon>
            <span class="Navigation-title">달력</span>
          </a>
-          <a name="view1" href="/view2">
-            <iron-icon class="Navigation-icon" icon="keyboard"></iron-icon>
-            <span class="Navigation-title">개발</span>
-          </a>
-          <a name="view1" href="/view3">
-            <iron-icon class="Navigation-icon" icon="insert-photo"></iron-icon>
-            <span class="Navigation-title">사진</span>
-          </a>
+         <a name="develop" href="/develop">
+           <iron-icon class="Navigation-icon" icon="keyboard"></iron-icon>
+           <span class="Navigation-title">개발</span>
+         </a>
+         <a name="photo" href="/photo">
+           <iron-icon class="Navigation-icon" icon="insert-photo"></iron-icon>
+           <span class="Navigation-title">사진</span>
+         </a>
         </iron-selector>
       </app-drawer>
 
@@ -106,9 +112,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             attr-for-selected="name"
             fallback-selection="view404"
             role="main">
-          <my-view1 name="view1"></my-view1>
-          <my-view2 name="view2"></my-view2>
-          <my-view3 name="view3"></my-view3>
+          <my-calendar name="calendar"></my-calendar>
+          <my-develop name="develop"></my-develop>
+          <my-photo name="photo"></my-photo>
+          <my-photo-contents name="photo-contents"></my-photo-contents>
           <my-view404 name="view404"></my-view404>
         </iron-pages>
       </app-header-layout>
@@ -132,7 +139,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       ],
 
       _routePageChanged: function(page) {
-        this.page = page || 'view1';
+        this.page = page || 'calendar';
       },
 
       _pageChanged: function(page) {
