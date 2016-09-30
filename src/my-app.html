@@ -103,7 +103,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <app-header condenses reveals effects="waterfall">
           <app-toolbar>
             <paper-icon-button icon="menu" drawer-toggle></paper-icon-button>
-            <div main-title>My App</div>
+            <div main-title>강민석님의 홈페이지</div>
           </app-toolbar>
         </app-header>
 
@@ -115,7 +115,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <my-calendar name="calendar"></my-calendar>
           <my-develop name="develop"></my-develop>
           <my-photo name="photo"></my-photo>
-          <my-photo-contents name="photo-contents"></my-photo-contents>
+          <my-photo-contents photo-subject="{{subMenu}}" name="photo-contents"></my-photo-contents>
           <my-view404 name="view404"></my-view404>
         </iron-pages>
       </app-header-layout>
@@ -131,6 +131,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: String,
           reflectToAttribute: true,
           observer: '_pageChanged'
+        },
+        subMenu: {
+          type: String,
+          reflectToAttribute: true
         }
       },
 

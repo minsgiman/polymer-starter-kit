@@ -19,15 +19,69 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         padding: 10px;
       }
+
+      ul.subject-list{
+        display:flex;
+        flex-direction:row;
+        list-style-type: none;
+        margin: 1em 0em;
+        padding-left: 1em;
+      }
+
+      ul.subject-list li {
+        width: 130px;
+      }
+
+      a {
+        width: 90px;
+        height: 90px;
+        text-decoration: none;
+      }
+
+      a img.photo-subject {
+        width: 80px;
+        height: 80px;
+        border:3px solid #bfc297
+      }
+      a figure {
+        margin: 1.2em;
+      }
+
+      a figure figcaption {
+        width: 80px;
+        text-align: center;
+      }
+
     </style>
     <div class="card">
-      <a name="photo-contents" href="/photo-contents">Taiwan</a>
+      <ul class="subject-list">
+        <li>
+          <a on-click="clickHandler" data-sub="taiwan" name="photo-contents" href="/photo-contents">
+            <figure>
+              <img class="photo-subject" src="./../images/photo/jiupen.jpg">
+              <figcaption>대만</figcaption>
+            </figure>
+          </a>
+        </li>
+        <li>
+          <a on-click="clickHandler" data-sub="flower" name="photo-contents" href="/photo-contents">
+            <figure>
+              <img class="photo-subject" src="./../images/photo/flower.jpg">
+              <figcaption>벚꽃놀이</figcaption>
+            </figure>
+          </a>
+        </li>
+      </ul>
     </div>
   </template>
 
   <script>
     Polymer({
-      is: 'my-photo'
+      is: 'my-photo',
+      clickHandler: function(event) {
+          console.log('click link');
+          document.querySelector("my-app").subMenu = event.currentTarget.getAttribute('data-sub')
+      }
     });
   </script>
 </dom-module>
