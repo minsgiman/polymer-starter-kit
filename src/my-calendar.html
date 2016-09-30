@@ -52,7 +52,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div on-click="btnClicked" id="kCalendar"></div>
       <div class="schedule">주요 일정
         <ul>
-          <li>2016-09-30 : 퇴근</li>
+          <li>2016-09-30 : 불금</li>
         </ul>
       </div>
     </div>
@@ -70,14 +70,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
       btnClicked: function(e) {
-        var date;
+        var date, className = e.target.className;
 
-        if (e.target.className === "button right" || e.target.className === "button left") {
+        if (className.match(/right|left/g)) {
           if (e) {
-              var args = e.target.getAttribute('data-args').split(',');
-              if (args) {
-                date = args[0];
-              }
+            var args = e.target.getAttribute('data-args').split(',');
+            if (args) {
+              date = args[0];
+            }
           }
           this.kCalendar(date);
         }
@@ -141,46 +141,51 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           var currentMonth = '0' + currentMonth;
         //10월 이하라면 앞에 0을 붙여준다.
 
-        var calendar = '';
+        var myHtml = '';
+        var header = document.createElement('div');
+        header.id = 'header';
+        myHtml += '			<span><a href="#" class="button left" data-args=' + prevDate + '><</a></span>';
+        myHtml += '			<span id="date">' + currentYear + '년 ' + currentMonth + '월</span>';
+        myHtml += '			<span><a href="#" class="button right" data-args=' + nextDate + '>></a></span>';
+        header.innerHTML = myHtml;
 
-        calendar += '<div id="header">';
-        calendar += '			<span><a href="#" class="button left" data-args=' + prevDate + '><</a></span>';
-        calendar += '			<span id="date">' + currentYear + '년 ' + currentMonth + '월</span>';
-        calendar += '			<span><a href="#" class="button right" data-args=' + nextDate + '>></a></span>';
-        calendar += '		</div>';
-        calendar += '		<table border="0" cellspacing="0" cellpadding="0">';
-        calendar += '			<caption>' + currentYear + '년 ' + currentMonth + '월 달력</caption>';
-        calendar += '			<thead>';
-        calendar += '				<tr>';
-        calendar += '				  <th class="sun" scope="row">일</th>';
-        calendar += '				  <th class="mon" scope="row">월</th>';
-        calendar += '				  <th class="tue" scope="row">화</th>';
-        calendar += '				  <th class="wed" scope="row">수</th>';
-        calendar += '				  <th class="thu" scope="row">목</th>';
-        calendar += '				  <th class="fri" scope="row">금</th>';
-        calendar += '				  <th class="sat" scope="row">토</th>';
-        calendar += '				</tr>';
-        calendar += '			</thead>';
-        calendar += '			<tbody>';
+        var table = document.createElement('table');
+        table.border = "0";
+        table.cellspacing = "0";
+        table.cellpadding = "0";
+        myHtml = '';
+        myHtml += '			<caption>' + currentYear + '년 ' + currentMonth + '월 달력</caption>';
+        myHtml += '			<thead>';
+        myHtml += '				<tr>';
+        myHtml += '				  <th class="sun" scope="row">일</th>';
+        myHtml += '				  <th class="mon" scope="row">월</th>';
+        myHtml += '				  <th class="tue" scope="row">화</th>';
+        myHtml += '				  <th class="wed" scope="row">수</th>';
+        myHtml += '				  <th class="thu" scope="row">목</th>';
+        myHtml += '				  <th class="fri" scope="row">금</th>';
+        myHtml += '				  <th class="sat" scope="row">토</th>';
+        myHtml += '				</tr>';
+        myHtml += '			</thead>';
+        myHtml += '			<tbody>';
 
         var dateNum = 1 - currentDay;
 
         for(var i = 0; i < week; i++) {
-          calendar += '			<tr>';
+          myHtml += '			<tr>';
           for(var j = 0; j < 7; j++, dateNum++) {
             if( dateNum < 1 || dateNum > currentLastDate ) {
-              calendar += '				<td class="' + dateString[j] + '"> </td>';
+              myHtml += '				<td class="' + dateString[j] + '"> </td>';
               continue;
             }
-            calendar += '				<td class="' + dateString[j] + '">' + dateNum + '</td>';
+            myHtml += '				<td class="' + dateString[j] + '">' + dateNum + '</td>';
           }
-          calendar += '			</tr>';
+          myHtml += '			</tr>';
         }
+        myHtml += '			</tbody>';
+        table.innerHTML = myHtml;
 
-        calendar += '			</tbody>';
-        calendar += '		</table>';
-
-        kCalendar.innerHTML = calendar;
+        Polymer.dom(this.$.kCalendar).appendChild(header);
+        Polymer.dom(this.$.kCalendar).appendChild(table);
       }
     });
   </script>
