@@ -16,22 +16,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <style include="shared-styles">
       :host {
         display: block;
-
         padding: 10px;
       }
 
       div.card {
-        display:flex;
-        flex-direction:row;
+        height: 500px;
       }
 
       div.card .schedule {
-        text-align:center;
-        margin-top: 20px;
+        position: absolute;
+        line-height: 30px;
+        margin-top: 260px;
         margin-left: 10px;
       }
 
-      #kCalendar {width: 250px; height: 250px; border: 1px solid black;}
+      #kCalendar {
+          position:absolute;
+          width: 250px;
+          height: 250px;
+          border: 1px solid black;
+      }
 
       #kCalendar #header {height: 50px; line-height: 50px; text-align: center; font-size: 18px; font-weight: bold}
       #kCalendar .button {color: #000; text-decoration: none;}
@@ -50,8 +54,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <div class="card">
       <div on-click="btnClicked" id="kCalendar"></div>
-      <div class="schedule">주요 일정
+      <div class="schedule">
         <ul>
+          <li>2016-09-20 : 평일</li>
           <li>2016-09-30 : 불금</li>
         </ul>
       </div>
