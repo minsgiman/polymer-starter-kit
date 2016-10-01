@@ -10,6 +10,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="shared-styles.html">
+<link rel="import" href="my-global.html">
 
 <dom-module id="my-calendar">
   <template>
@@ -23,7 +24,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         height: 500px;
       }
 
-      div.card .schedule {
+      div.card #schedule {
         position: absolute;
         line-height: 30px;
         margin-top: 260px;
@@ -38,7 +39,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
       #kCalendar #header {height: 50px; line-height: 50px; text-align: center; font-size: 18px; font-weight: bold}
-      #kCalendar .button {color: #000; text-decoration: none;}
+      #kCalendar .button {
+        padding: 0 15px;
+        color: #000;
+        text-decoration: none;
+      }
 
       #kCalendar table {width: 250px; height: 200px;}
       #kCalendar caption {display: none;}
@@ -50,15 +55,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       #kCalendar .thu {text-align: center;}
       #kCalendar .fri {text-align: center;}
       #kCalendar .sat {text-align: center; color: deepskyblue;}
-    </style>
 
+      #kCalendar table td.anniversary {
+        border: 2px solid red;
+      }
+    </style>
+    <my-global id="global"></my-global>
     <div class="card">
       <div on-click="btnClicked" id="kCalendar"></div>
-      <div class="schedule">
-        <ul>
-          <li>2016-09-20 : 평일</li>
-          <li>2016-09-30 : 불금</li>
-        </ul>
+      <div id="schedule">
+        <ul></ul>
       </div>
     </div>
   </template>
@@ -66,12 +72,30 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script>
     Polymer({
       is: 'my-calendar',
+      properties: {
+        currentYear: {
+          type: Number
+        },
+        currentMonth: {
+          type: Number
+        },
+        currentDay: {
+          type: Number
+        }
+      },
+      created: function() {
+        this.currentYear = 0;
+        this.currentMonth = 0;
+        this.currentDay = 0;
+      },
       attached: function() {
         this.kCalendar();
+        this.setSchedule();
       },
       attributeChanged: function (attrName, oldVal, newVal) {
         if (attrName === "class" && newVal === "iron-selected") {
           this.kCalendar();
+          this.setSchedule();
         }
       },
       btnClicked: function(e) {
@@ -85,10 +109,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
           }
           this.kCalendar(date);
+          this.setSchedule();
         }
       },
       kCalendar: function (date) {
         var kCalendar = this.$['kCalendar'];
+        var schedule = this.$['schedule'];
 
         if (!kCalendar) {
             return;
@@ -98,6 +124,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         {
           kCalendar.removeChild(kCalendar.firstChild);
         }
+        while (schedule.hasChildNodes())
+        {
+          schedule.removeChild(schedule.firstChild);
+        }
 
         if( typeof( date ) !== 'undefined' ) {
           date = date.split('-');
@@ -106,13 +136,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         } else {
           var date = new Date();
         }
-        var currentYear = date.getFullYear();
+        this.currentYear = date.getFullYear();
         //년도를 구함
 
-        var currentMonth = date.getMonth() + 1;
+        this.currentMonth = date.getMonth() + 1;
         //연을 구함. 월은 0부터 시작하므로 +1, 12월은 11을 출력
 
-        var currentDate = date.getDate();
+        this.currentDay = date.getDate();
         //오늘 일자.
 
         date.setDate(1);
@@ -121,36 +151,38 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         var dateString = new Array('sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat');
         var lastDate = new Array(31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31);
-        if( (currentYear % 4 === 0 && currentYear % 100 !== 0) || currentYear % 400 === 0 )
+        if( (this.currentYear % 4 === 0 && this.currentYear % 100 !== 0) || this.currentYear % 400 === 0 )
           lastDate[1] = 29;
         //각 달의 마지막 일을 계산, 윤년의 경우 년도가 4의 배수이고 100의 배수가 아닐 때 혹은 400의 배수일 때 2월달이 29일 임.
 
-        var currentLastDate = lastDate[currentMonth-1];
+        var currentLastDate = lastDate[this.currentMonth-1];
         var week = Math.ceil( ( currentDay + currentLastDate ) / 7 );
         //총 몇 주인지 구함.
 
-        if(currentMonth != 1)
-          var prevDate = currentYear + '-' + ( currentMonth - 1 ) + '-' + currentDate;
+        if(this.currentMonth != 1)
+          var prevDate = this.currentYear + '-' + ( this.currentMonth - 1 ) + '-' + this.currentDay;
         else
-          var prevDate = ( currentYear - 1 ) + '-' + 12 + '-' + currentDate;
+          var prevDate = ( this.currentYear - 1 ) + '-' + 12 + '-' + this.currentDay;
         //만약 이번달이 1월이라면 1년 전 12월로 출력.
 
-        if(currentMonth != 12)
-          var nextDate = currentYear + '-' + ( currentMonth + 1 ) + '-' + currentDate;
+        if(this.currentMonth != 12)
+          var nextDate = this.currentYear + '-' + ( this.currentMonth + 1 ) + '-' + this.currentDay;
         else
-          var nextDate = ( currentYear + 1 ) + '-' + 1 + '-' + currentDate;
+          var nextDate = ( this.currentYear + 1 ) + '-' + 1 + '-' + this.currentDay;
         //만약 이번달이 12월이라면 1년 후 1월로 출력.
 
-
-        if( currentMonth < 10 )
-          var currentMonth = '0' + currentMonth;
-        //10월 이하라면 앞에 0을 붙여준다.
+        var currentMonth;
+        if( this.currentMonth < 10 ) {
+          currentMonth = '0' + this.currentMonth; //10월 이하라면 앞에 0을 붙여준다.
+        } else {
+          currentMonth = this.currentMonth;
+        }
 
         var myHtml = '';
         var header = document.createElement('div');
         header.id = 'header';
         myHtml += '			<span><a href="#" class="button left" data-args=' + prevDate + '><</a></span>';
-        myHtml += '			<span id="date">' + currentYear + '년 ' + currentMonth + '월</span>';
+        myHtml += '			<span id="date">' + this.currentYear + '년 ' + currentMonth + '월</span>';
         myHtml += '			<span><a href="#" class="button right" data-args=' + nextDate + '>></a></span>';
         header.innerHTML = myHtml;
 
@@ -159,7 +191,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         table.cellspacing = "0";
         table.cellpadding = "0";
         myHtml = '';
-        myHtml += '			<caption>' + currentYear + '년 ' + currentMonth + '월 달력</caption>';
+        myHtml += '			<caption>' + this.currentYear + '년 ' + currentMonth + '월 달력</caption>';
         myHtml += '			<thead>';
         myHtml += '				<tr>';
         myHtml += '				  <th class="sun" scope="row">일</th>';
@@ -182,7 +214,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               myHtml += '				<td class="' + dateString[j] + '"> </td>';
               continue;
             }
-            myHtml += '				<td class="' + dateString[j] + '">' + dateNum + '</td>';
+            myHtml += '				<td class="' + dateString[j] + " " + "day" + dateNum + '">' + dateNum + '</td>';
           }
           myHtml += '			</tr>';
         }
@@ -191,6 +223,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
         Polymer.dom(this.$.kCalendar).appendChild(header);
         Polymer.dom(this.$.kCalendar).appendChild(table);
+      },
+      setSchedule: function() {
+        var i, len, schedule, elDay, elSchedule, date, year, month, day;
+
+        len = this.$.global.schedule.length;
+        for (i = 0; i < len; i+=1) {
+          schedule = this.$.global.schedule[i];
+          date = schedule.date.split('-');
+          year = parseInt(date[0]);
+          month = parseInt(date[1]);
+          day = parseInt(date[2]);
+          if (year === this.currentYear && month === this.currentMonth) {
+            elDay = this.$.kCalendar.querySelector('.day' + day);
+            if (elDay) {
+              elDay.classList.add('anniversary');
+            }
+            elSchedule = document.createElement('li');
+            elSchedule.innerHTML = schedule.date + ' : ' + schedule.title;
+            Polymer.dom(this.$.schedule).appendChild(elSchedule);
+          }
+        }
       }
     });
   </script>
