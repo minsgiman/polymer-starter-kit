@@ -24,20 +24,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin: 0px;
       }
 
+      #schedule {
+        width: 262px;
+        margin: 10px auto 40px auto;
+        padding-left: 30px;
+        line-height: 30px;
+      }
+
       #kCalendar {
           width: 262px;
           margin: auto;
           border: 1px solid black;
-      }
-
-      #schedule {
-        text-align: center;
-        margin-top: 10px;
-        line-height: 30px;
-      }
-
-      #schedule li {
-        display: block;
       }
 
       #kCalendar #header {height: 50px; line-height: 50px; text-align: center; font-size: 18px; font-weight: bold}
@@ -51,6 +48,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin: auto;
         width: 260px;
         height: 210px;
+        border-spacing: 10px;
       }
       #kCalendar caption {display: none;}
 
@@ -65,10 +63,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       #kCalendar table td.anniversary {
         border: 2px solid red;
       }
+      #kCalendar table td.today {
+        background: lightblue;
+      }
 
       /* 태블릿용 CSS */
       @media all and (min-width:768px){
         #schedule {
+          width:352px;
           font-size: 18px;
           line-height: 35px;
         }
@@ -79,17 +81,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           font-size: 20px;
         }
         #kCalendar table {
-          font-size: 18px;
-        }
-        #kCalendar table {
           width: 350px;
           height: 285px;
+          font-size: 18px;
+          border-spacing: 15px;
         }
       }
 
       /* PC용 CSS */
       @media all and (min-width:960px) {
         #schedule {
+          width:704px;
           font-size: 26px;
           line-height: 50px;
         }
@@ -101,10 +103,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
         #kCalendar table {
           font-size: 26px;
-        }
-        #kCalendar table {
           width: 700px;
           height: 570px;
+          border-spacing: 25px;
         }
         #kCalendar table td.anniversary {
           border-width: 3px;
@@ -115,8 +116,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <my-global id="global"></my-global>
     <div class="card">
       <div on-click="btnClicked" id="kCalendar"></div>
-      <div id="schedule">
-        <ul></ul>
+      <ul id="schedule"></ul>
       </div>
     </div>
   </template>
@@ -279,6 +279,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       setSchedule: function() {
         var i, len, schedule, elDay, elSchedule, date, year, month, day;
 
+        /* Set anniversary mark */
         len = this.$.global.schedule.length;
         for (i = 0; i < len; i+=1) {
           schedule = this.$.global.schedule[i];
@@ -294,6 +295,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             elSchedule = document.createElement('li');
             elSchedule.innerHTML = schedule.date + ' : ' + schedule.title;
             Polymer.dom(this.$.schedule).appendChild(elSchedule);
+          }
+        }
+
+        /* Set today mark */
+        var dateObj = new Date();
+        if (this.currentYear === dateObj.getFullYear() && this.currentMonth === (dateObj.getMonth() + 1)) {
+          elDay = this.$.kCalendar.querySelector('.day' + this.currentDay);
+          if (elDay) {
+            elDay.classList.add('today');
           }
         }
       }
