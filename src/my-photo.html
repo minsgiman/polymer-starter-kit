@@ -22,34 +22,65 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       ul.subject-list{
         display:flex;
-        flex-direction:row;
+        flex-flow:row wrap;
+        padding: 0px;
+        margin: auto;
         list-style-type: none;
-        margin: 1em 0em;
-        padding-left: 1em;
       }
 
       ul.subject-list li {
-        width: 130px;
+        margin: auto;
       }
 
       a {
-        width: 90px;
-        height: 90px;
+        width: 124px;
+        height: 124px;
         text-decoration: none;
       }
 
-      a img.photo-subject {
-        width: 80px;
-        height: 80px;
-        border:3px solid #bfc297
-      }
       a figure {
-        margin: 1.2em;
+        width: 123px;
+        margin: 10px;
+        border: 4px groove gray;
       }
 
+      a img.photo-subject {
+        width: 123px;
+        height: 120px;
+      }
+
+
       a figure figcaption {
-        width: 80px;
         text-align: center;
+      }
+
+      /* PC용 CSS */
+      @media all and (min-width:960px) {
+        ul.subject-list {
+          padding-left: 30px;
+        }
+
+        ul.subject-list li {
+          margin: 5px 20px;
+        }
+
+        a {
+          width: 154px;
+          height: 154px;
+        }
+
+        a figure {
+          width: 153px;
+        }
+
+        a img.photo-subject {
+          width: 153px;
+          height: 150px;
+        }
+
+        a figure figcaption {
+          font-size: 25px;
+        }
       }
 
     </style>
@@ -58,7 +89,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <li>
           <a on-click="clickHandler" data-sub="taiwan" name="photo-contents" href="/photo-contents">
             <figure>
-              <img class="photo-subject" src="./../images/photo/jiupen.jpg">
+              <img class="photo-subject" src="./../images/photo/jiupen.png">
               <figcaption>대만</figcaption>
             </figure>
           </a>
@@ -66,7 +97,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <li>
           <a on-click="clickHandler" data-sub="flower" name="photo-contents" href="/photo-contents">
             <figure>
-              <img class="photo-subject" src="./../images/photo/flower.jpg">
+              <img class="photo-subject" src="./../images/photo/flower.png">
               <figcaption>벚꽃놀이</figcaption>
             </figure>
           </a>
