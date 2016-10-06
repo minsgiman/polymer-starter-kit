@@ -147,6 +147,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.$.selector.opened = false;
         }
         this.page = page || 'calendar';
+        /*
+        var md = getText('./README.md');
+        var mhtml = markdown.toHTML(md);
+
+        function getText(myUrl) {
+          var result = null;
+          $.ajax({
+            url: myUrl,
+            type: 'get',
+            dataType: 'html',
+            async: false,
+            success: function(data) {result = data;}
+          });
+          return result;
+        }
+        document.write(mhtml);
+        */
       },
 
       _pageChanged: function(page) {
