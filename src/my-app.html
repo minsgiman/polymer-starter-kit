@@ -114,6 +114,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             role="main">
           <my-calendar name="calendar"></my-calendar>
           <my-develop name="develop"></my-develop>
+          <my-markdown name="markdown"></my-markdown>
           <my-photo name="photo"></my-photo>
           <my-photo-contents photo-subject="{{subMenu}}" name="photo-contents"></my-photo-contents>
           <my-view404 name="view404"></my-view404>
@@ -147,23 +148,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.$.selector.opened = false;
         }
         this.page = page || 'calendar';
-        /*
-        var md = getText('./README.md');
-        var mhtml = markdown.toHTML(md);
-
-        function getText(myUrl) {
-          var result = null;
-          $.ajax({
-            url: myUrl,
-            type: 'get',
-            dataType: 'html',
-            async: false,
-            success: function(data) {result = data;}
-          });
-          return result;
-        }
-        document.write(mhtml);
-        */
       },
 
       _pageChanged: function(page) {
