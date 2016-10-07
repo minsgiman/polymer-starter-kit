@@ -9,19 +9,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="shared-styles.html">
+<link rel="import" href="markdown-styles.html">
 <script src="./../bower_components/markdown/lib/markdown.js"></script>
 
 <dom-module id="my-markdown">
     <template>
-        <style include="shared-styles">
+        <style include="markdown-styles">
             :host {
                 display: block;
                 padding: 10px;
             }
         </style>
 
-        <div id="markdown" class="card">
+        <div id="contentDescriptor" class="card">
             hi
         </div>
     </template>
@@ -55,7 +55,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     loadedMarkdown = getText(myUrl);
                     if (loadedMarkdown) {
                         convertedHTML = markdown.toHTML(loadedMarkdown);
-                        this.$.markdown.innerHTML = convertedHTML;
+                        this.$.contentDescriptor.innerHTML = convertedHTML;
                     }
                 }
 
