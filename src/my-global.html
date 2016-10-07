@@ -22,10 +22,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 {date : "2017-2-23", title : "3주년"},
             ];
 
+            var develop = [
+                {
+                    id : 'javascript',
+                    title : 'Javascript',
+                    contents : [
+                        {title : 'xxx', fileUrl : 'xxx'}
+                    ]
+                },
+                {
+                    id : 'polymer',
+                    title : 'Polymer',
+                    contents : [
+                        {title : 'xxx', fileUrl : 'xxx'}
+                    ]
+                }
+            ];
+
             Polymer({
                 is: 'my-global',
                 created: function() {
                     this.schedule = schedule;
+                    this.develop = develop;
                 }
             });
         })();
