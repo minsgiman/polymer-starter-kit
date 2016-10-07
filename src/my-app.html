@@ -114,8 +114,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             role="main">
           <my-calendar name="calendar"></my-calendar>
           <my-develop name="develop"></my-develop>
-          <my-develop-contents name="develop-contents"></my-develop-contents>
-          <my-markdown name="markdown"></my-markdown>
+          <my-develop-contents develop-subject="{{subMenu}}" name="develop-contents"></my-develop-contents>
+          <my-markdown file-url="{{fileUrl}}" name="markdown"></my-markdown>
           <my-photo name="photo"></my-photo>
           <my-photo-contents photo-subject="{{subMenu}}" name="photo-contents"></my-photo-contents>
           <my-view404 name="view404"></my-view404>
@@ -136,6 +136,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         },
         subMenu: {
           type: String,
+          reflectToAttribute: true
+        },
+        fileUrl: {
+          type: String,
+          value: null,
           reflectToAttribute: true
         }
       },

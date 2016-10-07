@@ -29,20 +29,35 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <script>
         Polymer({
             is: 'my-markdown',
+            properties: {
+                fileUrl : {
+                    type : String,
+                    value: "",
+                    notify: true,
+                    reflectToAttribute: true
+                }
+            },
             created: function() {
             },
             attached: function() {
-                this.loadMarkdown('./../README.md');
+                this.loadMarkdown(this.fileUrl);
             },
             attributeChanged: function (attrName, oldVal, newVal) {
                 if (attrName === "class" && newVal === "iron-selected") {
-                    this.loadMarkdown('./../README.md');
+                    this.loadMarkdown(this.fileUrl);
                 }
             },
             loadMarkdown: function(myUrl) {
-                var loadedMarkdown = getText(myUrl);
-                var convertedHTML = markdown.toHTML(loadedMarkdown);
-                this.$.markdown.innerHTML = convertedHTML;
+                var convertedHTML = "";
+                var loadedMarkdown = "";
+
+                if (myUrl) {
+                    loadedMarkdown = getText(myUrl);
+                    if (loadedMarkdown) {
+                        convertedHTML = markdown.toHTML(loadedMarkdown);
+                        this.$.markdown.innerHTML = convertedHTML;
+                    }
+                }
 
                 function getText(myUrl) {
                     var result = null;

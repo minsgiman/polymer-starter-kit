@@ -81,11 +81,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     <tbody>
                         <tr>
                             <td>1</td>
-                            <td><a name="markdown" href="/markdown">Javascript</a></td>
+                            <td><a on-click="clickHandler" data-url="./../README.md" name="markdown" href="/markdown">Javascript</a></td>
                         </tr>
                         <tr>
                             <td>2</td>
-                            <td><a name="markdown" href="/markdown">Polymer</a></td>
+                            <td><a on-click="clickHandler" data-url="./../README.md" name="markdown" href="/markdown">Polymer</a></td>
                         </tr>
                     </tbody>
                 </table>
@@ -95,7 +95,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     <script>
         Polymer({
-            is: 'my-develop-contents'
+            is: 'my-develop-contents',
+            properties: {
+                developSubject : {
+                    type : String,
+                    value: "",
+                    notify: true,
+                    reflectToAttribute: true
+                }
+            },
+            created: function() {
+            },
+            attached: function() {
+                console.log(this.developSubject);
+            },
+            attributeChanged: function (attrName, oldVal, newVal) {
+                if (attrName === "class" && newVal === "iron-selected") {
+                    console.log(this.developSubject);
+                }
+            },
+            clickHandler: function(event) {
+                document.querySelector("my-app").fileUrl = event.currentTarget.getAttribute('data-url');
+            }
         });
     </script>
 </dom-module>
