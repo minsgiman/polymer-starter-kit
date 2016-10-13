@@ -9,6 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="my-global.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="my-develop">
@@ -35,6 +36,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
+    <my-global id="global"></my-global>
     <div class="card">
       <a on-click="clickHandler" data-sub="javascript" name="develop-contents" href="/develop-contents">
         <iron-icon class="icon" icon="brightness-5"></iron-icon>
@@ -48,7 +50,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'my-develop',
       clickHandler: function(event) {
         document.querySelector("my-app").subMenu = event.currentTarget.getAttribute('data-sub');
-      }
+      },
+      attached: function() {
+        //
+      },
+      attributeChanged: function (attrName, oldVal, newVal) {
+        if (attrName === "class" && newVal === "iron-selected") {
+          //
+        }
+      },
     });
   </script>
 </dom-module>
