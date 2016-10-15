@@ -9,6 +9,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
+<link rel="import" href="my-global.html">
 <link rel="import" href="shared-styles.html">
 
 <dom-module id="my-develop-contents">
@@ -68,26 +69,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
         </style>
 
+        <my-global id="global"></my-global>
         <div class="card">
             <nav class="nav">
-                <table>
-                    <caption>My List</caption>
-                    <thead>
+                <table id="table">
+                    <caption id="caption"></caption>
+                    <thead id="tableHead">
                         <tr>
                             <th></th>
                             <th>Title</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td><a on-click="clickHandler" data-url="./../markdown/web-component.md" name="markdown" href="/markdown">Javascript</a></td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td><a on-click="clickHandler" data-url="./../README.md" name="markdown" href="/markdown">Polymer</a></td>
-                        </tr>
-                    </tbody>
+                    <tbody id="tableBody"></tbody>
                 </table>
             </nav>
         </div>
@@ -107,15 +100,65 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             created: function() {
             },
             attached: function() {
-                console.log(this.developSubject);
+                this.makeSubItem();
             },
             attributeChanged: function (attrName, oldVal, newVal) {
                 if (attrName === "class" && newVal === "iron-selected") {
-                    console.log(this.developSubject);
+                    this.makeSubItem();
                 }
             },
             clickHandler: function(event) {
                 document.querySelector("my-app").fileUrl = event.currentTarget.getAttribute('data-url');
+            },
+            makeSubItem: function() {
+                var i, len;
+                var contentsData = null;
+                var trTag, tdTag, aTag, tableBody = this.$.tableBody;
+
+                /* Init Table Body */
+                while (tableBody.hasChildNodes())
+                {
+                    tableBody.removeChild(tableBody.firstChild);
+                }
+
+                /* Find Sub Contents */
+                len = this.$.global.develop.length;
+                for (i = 0; i < len; i+=1) {
+                    if (this.$.global.develop[i].id === this.developSubject) {
+                        contentsData = this.$.global.develop[i];
+                        break;
+                    }
+                }
+                if (!contentsData) {
+                    console.log('There is no contentsData');
+                    return;
+                }
+
+                /* Set Title */
+                this.$.caption.innerHTML = contentsData.title;
+
+                /* Make Table Body Sub Item */
+                len = contentsData.contents.length;
+                for (i = 0; i < len; i+=1) {
+                    trTag = document.createElement('tr');
+
+                    tdTag = document.createElement('td');
+                    tdTag.innerHTML = i + 1;
+                    trTag.appendChild(tdTag);
+
+                    tdTag = document.createElement('td');
+                    trTag.appendChild(tdTag);
+
+                    aTag = document.createElement('a');
+                    aTag.innerHTML = contentsData.contents[i].title;
+                    aTag.onclick = this.clickHandler;
+                    aTag.setAttribute('data-url', contentsData.contents[i].fileUrl);
+                    aTag.name = 'markdown';
+                    aTag.href = '/markdown';
+                    tdTag.appendChild(aTag);
+
+                    Polymer.dom(tableBody).appendChild(trTag);
+                }
             }
         });
     </script>

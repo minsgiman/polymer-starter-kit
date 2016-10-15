@@ -6,8 +6,7 @@
     "src/my-develop.html",
     "src/my-develop-contents.html",
     "src/my-markdown.html",
-    "src/my-photo.html",
-    "src/my-photo-contents.html",
+    "src/my-blog.html",
     "src/my-view404.html"
   ],
   "sourceGlobs": [

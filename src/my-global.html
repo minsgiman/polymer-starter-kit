@@ -15,10 +15,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         (function() {
             var schedule = [
                 {date : "2016-10-3", title : "에버랜드 가는 날"},
+                {date : "2016-10-14", title : "ETF 월간 손익 보고 : +3.1%"},
                 {date : "2016-10-25", title : "민석 생일"},
+                {date : "2016-11-5", title : "서령이 언니 결혼식"},
                 {date : "2016-11-10", title : "진영이 생일"},
+                {date : "2016-11-14", title : "ETF 월간 손익 보고"},
                 {date : "2016-11-18", title : "1000일"},
+                {date : "2016-12-14", title : "ETF 월간 손익 보고"},
+                {date : "2016-12-15", title : "우석이 생일"},
+                {date : "2017-1-14", title : "ETF 월간 손익 보고"},
+                {date : "2017-1-26", title : "아버지 생일"},
                 {date : "2017-1-28", title : "설날"},
+                {date : "2017-2-14", title : "ETF 월간 손익 보고"},
                 {date : "2017-2-23", title : "3주년"},
             ];
 
@@ -27,16 +35,21 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     id : 'javascript',
                     title : 'Javascript',
                     contents : [
-                        {title : 'xxx', fileUrl : 'xxx'}
                     ]
                 },
                 {
                     id : 'polymer',
                     title : 'Polymer',
                     contents : [
-                        {title : 'xxx', fileUrl : 'xxx'}
+                        {title : 'Web Component란 무엇인가', fileUrl : './../markdown/web-component.md'}
                     ]
                 }
+            ];
+
+            var blog = [
+                {title : '사마의의 위험 관리', fileUrl : './../markdown/samaeui.md'},
+                {title : 'ETF 거래', fileUrl : './../markdown/etf-trade.md'},
+                {title : '나의 거래 원칙', fileUrl : './../markdown/my-trade-rule.md'},
             ];
 
             Polymer({
@@ -44,6 +57,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 created: function() {
                     this.schedule = schedule;
                     this.develop = develop;
+                    this.blog = blog;
                 }
             });
         })();
