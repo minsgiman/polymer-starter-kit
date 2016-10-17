@@ -94,17 +94,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     type : String,
                     value: "",
                     notify: true,
-                    reflectToAttribute: true
-                }
-            },
-            created: function() {
-            },
-            attached: function() {
-                this.makeSubItem();
-            },
-            attributeChanged: function (attrName, oldVal, newVal) {
-                if (attrName === "class" && newVal === "iron-selected") {
-                    this.makeSubItem();
+                    reflectToAttribute: true,
+                    observer: 'makeSubItem'
                 }
             },
             clickHandler: function(event) {

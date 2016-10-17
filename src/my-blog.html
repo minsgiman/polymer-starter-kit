@@ -96,11 +96,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       attached: function() {
         this.makeSubItem();
       },
-      attributeChanged: function (attrName, oldVal, newVal) {
-        if (attrName === "class" && newVal === "iron-selected") {
-          this.makeSubItem();
-        }
-      },
       clickHandler: function(event) {
         document.querySelector("my-app").fileUrl = event.currentTarget.getAttribute('data-url');
       },

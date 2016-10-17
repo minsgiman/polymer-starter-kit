@@ -54,11 +54,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       attached: function() {
         this.makeSubLinkItem();
       },
-      attributeChanged: function (attrName, oldVal, newVal) {
-        if (attrName === "class" && newVal === "iron-selected") {
-          this.makeSubLinkItem();
-        }
-      },
       makeSubLinkItem: function () {
         var i, developData = this.$.global.develop, len = developData.length;
         var aTag, ironIconTag, hTag, page = this.$.page;

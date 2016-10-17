@@ -35,17 +35,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     type : String,
                     value: "",
                     notify: true,
-                    reflectToAttribute: true
-                }
-            },
-            created: function() {
-            },
-            attached: function() {
-                this.loadMarkdown(this.fileUrl);
-            },
-            attributeChanged: function (attrName, oldVal, newVal) {
-                if (attrName === "class" && newVal === "iron-selected") {
-                    this.loadMarkdown(this.fileUrl);
+                    reflectToAttribute: true,
+                    observer: 'loadMarkdown'
                 }
             },
             loadMarkdown: function(myUrl) {
