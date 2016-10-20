@@ -12,7 +12,7 @@
 
 ![object](./../images/develop/garbage1.png "object")
 
-##### 아래 그림과 같이 최상위 객체인 window로부터 접근할 수 있는 reference가 없는 value가 가비지가 된다.
+##### 아래 그림과 같이 최상위 객체로부터 접근할 수 있는 reference가 없는 value가 가비지가 된다.
 
 ![object](./../images/develop/garbage2.png "object")
 
