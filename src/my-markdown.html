@@ -11,7 +11,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <link rel="import" href="../bower_components/polymer/polymer.html">
 <link rel="import" href="markdown-styles.html">
 <script src="./../bower_components/markdown/lib/markdown.js"></script>
-<script src="https://code.jquery.com/jquery-2.1.4.js"></script>
 
 <dom-module id="my-markdown">
     <template>
@@ -42,27 +41,38 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             loadMarkdown: function(myUrl) {
                 var convertedHTML = "";
                 var loadedMarkdown = "";
+                var httpRequest;
+                var that = this;
 
                 if (myUrl) {
-                    loadedMarkdown = getText(myUrl);
-                    if (loadedMarkdown) {
-                        convertedHTML = markdown.toHTML(loadedMarkdown);
-                        this.$.contentDescriptor.innerHTML = convertedHTML;
+                    if (window.XMLHttpRequest) { // 모질라, 사파리등 그외 브라우저, ...
+                        httpRequest = new XMLHttpRequest();
+                    } else if (window.ActiveXObject) { // IE 8 이상
+                        httpRequest = new ActiveXObject("Microsoft.XMLHTTP");
                     }
+
+                    if (!httpRequest) {
+                        console.log('Giving up :( Cannot create an XMLHTTP instance');
+                        return;
+                    }
+
+                    httpRequest.onreadystatechange = getText;
+                    httpRequest.open('GET', myUrl);
+                    httpRequest.send();
                 }
 
-                function getText(myUrl) {
-                    var result = null;
-                    $.ajax({
-                        url: myUrl,
-                        type: 'get',
-                        dataType: 'html',
-                        async: false,
-                        success: function (data) {
-                            result = data;
+                function getText() {
+                    if (httpRequest.readyState === 4) {
+                        if (httpRequest.status === 200) {
+                            loadedMarkdown = httpRequest.responseText;
+                            if (loadedMarkdown) {
+                                convertedHTML = markdown.toHTML(loadedMarkdown);
+                                that.$.contentDescriptor.innerHTML = convertedHTML;
+                            }
+                        } else {
+                            console.log('There was a problem with the request.');
                         }
-                    });
-                    return result;
+                    }
                 }
             }
         });
