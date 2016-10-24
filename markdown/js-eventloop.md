@@ -1,10 +1,8 @@
-# Jquery의 Effect Queue
-
-## Web App이 동작하는데 브라우저의 JavaScript Engine과 Event Loop 그리고 Event Queue의 동작을 공부하였다.
+# JavaScript Engine과 Event Loop 그리고 Event Queue
 
 ***
 
-### Javascript Engine은 Javascript코드를 실행하는데 call stack을 사용한다.
+### Javascript Engine은 call stack을 통하여 Javascript 코드를 한줄 한줄 실행한다.
 
     /* main.js */
     var firstFunction = function () {  
@@ -43,7 +41,7 @@
         
         secondFunction();
    
-##### 1. 위 코드 수행 중, 아래와 같이 setTimeout이 실행되기 전까지의 call stack이다. **Event Table**과 **Event Queue**는 비어있는 상태이다.
+##### 1. 위 코드 수행 중, 아래는 setTimeout이 실행되기 전까지의 call stack이다. **Event Table**과 **Event Queue**는 비어있는 상태이다.
  
 ![object](./../images/develop/callstack3.png "object")
 
@@ -60,9 +58,9 @@
 
 ![object](./../images/develop/callstack6.png "object")
 
- ***
+***
  
- ### 참조
+### 참조
  
   - What is the JavaScript Event Loop?
   
