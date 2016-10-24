@@ -60,4 +60,10 @@
 
 ![object](./../images/develop/callstack6.png "object")
 
+ ***
  
+ ### 참조
+ 
+  - What is the JavaScript Event Loop?
+  
+  <http://altitudelabs.com/blog/what-is-the-javascript-event-loop/>
