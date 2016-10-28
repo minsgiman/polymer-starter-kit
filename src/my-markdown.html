@@ -44,6 +44,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 var httpRequest;
                 var that = this;
 
+                that.$.contentDescriptor.innerHTML = 'Loading....';
+
                 if (myUrl) {
                     if (window.XMLHttpRequest) { // 모질라, 사파리등 그외 브라우저, ...
                         httpRequest = new XMLHttpRequest();
@@ -53,12 +55,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
                     if (!httpRequest) {
                         console.log('Giving up :( Cannot create an XMLHTTP instance');
+                        that.$.contentDescriptor.innerHTML = 'Loading Failed';
                         return;
                     }
 
                     httpRequest.onreadystatechange = getText;
                     httpRequest.open('GET', myUrl);
                     httpRequest.send();
+                } else {
+                    that.$.contentDescriptor.innerHTML = 'Loading Failed';
                 }
 
                 function getText() {
@@ -71,6 +76,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                             }
                         } else {
                             console.log('There was a problem with the request.');
+                            that.$.contentDescriptor.innerHTML = 'Loading Failed';
                         }
                     }
                 }
