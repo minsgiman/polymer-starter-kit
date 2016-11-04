@@ -18,15 +18,32 @@
     
 ##### 2. 컴포넌트 API를 통해 EventHandler연결, Data Get, Set등을 제공한다.
 
+    /* EventHandler 연결 */
     objForm.setSubmitHandler(function(event) {
         srvService.deleteAllPortForwardingRules();
         event.preventDefault();
     });
     
+    /* 컴포넌트 Data Set */
     objForm.setValueWithId('input', SETUP_TAG_ID, data.destination);
     
-##### 3. DOM Tree연결은 생성한 컴포넌트의 최상위 요소인 $element를 통해서 연결하도록 구현.
+##### 3. 컴포넌트의 DOM Tree연결은 생성한 컴포넌트의 최상위 요소인 $element를 통해서 연결하도록 구현.
 
     if (objForm) {
         $collumnLeftBox.append(objForm.$element);
     }
+    
+##### 4. 컴포넌트끼리 부모 자식 관계를 형성할 수 있다.
+
+    objInfoList = new cmpBasic.list({
+        'class' : 'list',
+        ...
+    });
+
+    objForm = new cmpForm({
+        'name' :  'seguranca-controle-dos-pais-registro-local',
+        'data' : [
+            {'type' : 'element', 'element' : objInfoList.$element},
+        ]
+    });
+    
