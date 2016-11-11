@@ -39,13 +39,21 @@
 
 .
 
-#### 마지막으로 아래와 같이 Web App에 코드를 넣으면 Database의 text값이 변경될 때마다 alert가 발생하고, 변경된 값을 보여준다.  
-
-    ...
-    firebase.initializeApp(config);
-    
-    var dbRef = firebase.database().ref().child('text');
-    dbRef.on('value', snap => alert(snap.val()));
+#### 마지막으로 아래와 같이 Web App에 코드를 넣으면 Database의 text값이 변경될 때마다 alert가 발생하고, 변경된 값을 보여준다. (Realtime Database 동기화 코드)
+  
+ - ref()는 Realtime Database의 root를 리턴해준다.
+ - child로 Key를 지정하여 root아래 child Data객체를 얻어온다.
+ - Data객체의 on을 통해서 DB와 Web을 동기화 할 수 있다. (DB에서 해당 Data객체의 변경이 발생하면, 이벤트가 발생)
+ - on의 첫번째 파라미터는 이벤트 Type, 두번째 파라미터는 콜백 function
+ - snap 파라미터는 data snapshot (Key, value, child 등등의 정보를 가지고 있음)
+ 
+        ...
+        firebase.initializeApp(config);
+        
+        var dbRef = firebase.database().ref().child('text');
+        dbRef.on('value', snap => {
+            alert(snap.val())
+        });
     
 . 
          
