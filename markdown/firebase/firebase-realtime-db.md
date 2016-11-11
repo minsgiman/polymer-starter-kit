@@ -64,3 +64,7 @@
  - Getting Started with Firebase on the Web
  
    <https://www.youtube.com/watch?v=k1D0_wFlXgo&list=PLl-K7zZEsYLmnJ_FpMOZgyg6XcIGBu2OX>
+   
+ - Getting Started with the Firebase Realtime Database on the Web, Part 1 - Firecasts 
+  
+   <https://www.youtube.com/watch?v=noB98K6A0TY&list=PLl-K7zZEsYLmnJ_FpMOZgyg6XcIGBu2OX&index=2>

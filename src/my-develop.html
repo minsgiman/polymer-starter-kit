@@ -73,7 +73,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           ironIconTag = document.createElement('iron-icon');
           ironIconTag.className = 'icon';
-          ironIconTag.icon = 'brightness-5';
+          switch (i % 5) {
+            case 0:
+                  ironIconTag.icon = 'brightness-5';
+                  break;
+            case 1:
+                  ironIconTag.icon = 'brush';
+                  break;
+            case 2:
+                  ironIconTag.icon = 'brightness-6';
+                  break;
+            case 3:
+                  ironIconTag.icon = 'camera';
+                  break;
+            case 4:
+                  ironIconTag.icon = 'brightness-7';
+                  break;
+          }
 
           hTag = document.createElement('h1');
           hTag.className = 'title';
