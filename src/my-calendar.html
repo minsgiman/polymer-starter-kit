@@ -24,6 +24,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin: 0px;
       }
 
+      #addScheduleBtn {
+        margin: 18px auto;
+        width: 160px;
+        display: block;
+        background: aliceblue;
+      }
+
       #schedule {
         width: 262px;
         margin: 10px auto 40px auto;
@@ -74,6 +81,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           font-size: 18px;
           line-height: 35px;
         }
+        #addScheduleBtn {
+          margin: 20px auto;
+          width: 180px;
+          font-size: 18px;
+        }
         #kCalendar {
           width:352px;
         }
@@ -94,6 +106,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           width:704px;
           font-size: 26px;
           line-height: 50px;
+        }
+        #addScheduleBtn {
+          margin: 30px auto;
+          width: 240px;
+          font-size: 26px;
         }
         #kCalendar {
           width:704px;
@@ -116,6 +133,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <my-global id="global"></my-global>
     <div class="card">
       <div on-click="btnClicked" id="kCalendar"></div>
+      <button on-click="addSchedule" id="addScheduleBtn">Add Schedule</button>
       <ul id="schedule"></ul>
       </div>
     </div>
@@ -163,6 +181,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.kCalendar(date);
           this.setSchedule();
         }
+      },
+      addSchedule: function(e) {
+        debugger;
       },
       kCalendar: function (date) {
         var kCalendar = this.$['kCalendar'];
