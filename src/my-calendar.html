@@ -44,9 +44,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       #msgSchedule .msg-wrap .msg-content {
         display: inline-block;
-        width : 50%;
-        height: 50%;
+        width : 55%;
         background: #00a4ec;
+      }
+
+      #msgSchedule .msg-wrap .msg-content .f-wrap {
+        margin-top: 15px;
+      }
+
+      #msgSchedule .msg-wrap .msg-content label {
+        font-size: 18px;
+        margin: 0 10px;
+        color: black;
+      }
+
+      #msgSchedule .msg-wrap .msg-content input {
+        width: 55%;
+      }
+
+      #msgSchedule .msg-wrap .msg-content button {
+        margin: 20px 10px;
+        width: 22%;
+        height: 10%;
       }
 
       #showSchInputBtn {
@@ -175,6 +194,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               <label class="day-input">Day</label>
               <input class="input" id="dayInput" type="text" maxlength="2" name="day-input">
             </div>
+            <div class="f-wrap">
+              <label class="title-input">Title</label>
+              <input class="input" id="titleInput" type="text" name="title-input">
+            </div>
             <button on-click="addSchedule" id="addSchBtn">Apply</button>
             <button on-click="hideSchInput" id="hideSchInputBtn">Cancel</button>
           </div>
@@ -233,9 +256,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.$.msgSchedule.style.display = "none";
       },
       addSchedule: function(e) {
-        console.log('year : ' + this.$.yearInput.value);
-        console.log('year : ' + this.$.monthInput.value);
-        console.log('year : ' + this.$.dayInput.value);
+        var data = {
+          date: this.$.yearInput.value + '-' + this.$.monthInput.value + '-' + this.$.dayInput.value,
+          title: this.$.titleInput.value
+        };
+        this.$.msgSchedule.style.display = "none";
       },
       kCalendar: function (date) {
         var kCalendar = this.$['kCalendar'];
