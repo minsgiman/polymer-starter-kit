@@ -48,7 +48,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin: 0 20px;
       }
 
-      .drawer-list a {
+      .drawer-list a, .login-btn {
         display: block;
 
         padding: 0 26px;
@@ -65,11 +65,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         font-weight: bold;
       }
 
-      .drawer-list a span {
+      .drawer-list a span, .login-btn span {
         padding: 0 15px;
       }
+
+      .login-btn {
+        cursor: pointer;
+      }
+
     </style>
 
+    <my-global id="global"></my-global>
     <app-location route="{{route}}"></app-location>
     <app-route
         route="{{route}}"
@@ -95,7 +101,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
            <span class="Navigation-title">블로그</span>
          </a>
         </iron-selector>
-        <div>로그인</div>
+        <div class="login-btn" on-click="clickLoginBtn">
+          <iron-icon class="Navigation-icon" icon="insert-photo"></iron-icon>
+          <span class="Navigation-title">로그인</span>
+        </div>
       </app-drawer>
 
       <!-- Main content -->
@@ -164,6 +173,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _showPage404: function() {
         this.page = 'view404';
+      },
+
+      clickLoginBtn: function(e) {
+        if (this.$.global.isLogin === true) {
+          this.$.global.isLogin = false;
+          this.$$('.login-btn span').innerHTML = "로그인";
+        } else {
+          this.$.global.isLogin = true;
+          this.$$('.login-btn span').innerHTML = "로그아웃";
+        }
       }
     });
   </script>

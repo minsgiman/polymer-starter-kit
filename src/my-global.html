@@ -76,7 +76,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     title : 'Polymer',
                     contents : [
                         {title : 'Web Component란 무엇인가', fileUrl : './../markdown/polymer/web-component.md'},
-                        {title : 'Polymer가이드', fileUrl : './../markdown/polymer/polymer-guide.md'}
+                        {title : 'Polymer가이드', fileUrl : './../markdown/polymer/polymer-guide.md'},
+                        {title : 'Polymer Function', fileUrl : './../markdown/polymer/polymer-function.md'}
                     ]
                 },
                 {
@@ -98,12 +99,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 {title : '자산 배분의 중요성', fileUrl : './../markdown/blog/asset-allocation.md'},
             ];
 
+            var isLogin = false;
+
             Polymer({
                 is: 'my-global',
                 created: function() {
                     this.schedule = schedule;
                     this.develop = develop;
                     this.blog = blog;
+                    this.isLogin = isLogin;
                 }
             });
         })();
