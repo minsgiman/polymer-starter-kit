@@ -24,7 +24,32 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         margin: 0px;
       }
 
-      #addScheduleBtn {
+      #msgSchedule {
+        display: table;
+        z-index: 100;
+        width: 100%;
+        height: 100%;
+        top: 0px;
+        left: 0px;
+        position: absolute;
+      }
+
+      #msgSchedule .msg-wrap {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+        width: 100%;
+        height: 100%;
+      }
+
+      #msgSchedule .msg-wrap .msg-content {
+        display: inline-block;
+        width : 50%;
+        height: 50%;
+        background: #00a4ec;
+      }
+
+      #showSchInputBtn {
         margin: 18px auto;
         width: 160px;
         display: block;
@@ -81,7 +106,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           font-size: 18px;
           line-height: 35px;
         }
-        #addScheduleBtn {
+        #showSchInputBtn {
           margin: 20px auto;
           width: 180px;
           font-size: 18px;
@@ -107,7 +132,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           font-size: 26px;
           line-height: 50px;
         }
-        #addScheduleBtn {
+        #showSchInputBtn {
           margin: 30px auto;
           width: 240px;
           font-size: 26px;
@@ -133,8 +158,27 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <my-global id="global"></my-global>
     <div class="card">
       <div on-click="btnClicked" id="kCalendar"></div>
-      <button on-click="addSchedule" id="addScheduleBtn">Add Schedule</button>
+      <button on-click="showSchInput" id="showSchInputBtn">Add Schedule</button>
       <ul id="schedule"></ul>
+      <div id="msgSchedule" style="display:none;">
+        <div class="msg-wrap">
+          <div class="msg-content">
+            <div class="f-wrap">
+              <label class="year-input">Year</label>
+              <input class="input" id="yearInput" type="text" maxlength="4" name="year-input">
+            </div>
+            <div class="f-wrap">
+              <label class="month-input">Month</label>
+              <input class="input" id="monthInput" type="text" maxlength="2" name="month-input">
+            </div>
+            <div class="f-wrap">
+              <label class="day-input">Day</label>
+              <input class="input" id="dayInput" type="text" maxlength="2" name="day-input">
+            </div>
+            <button on-click="addSchedule" id="addSchBtn">Apply</button>
+            <button on-click="hideSchInput" id="hideSchInputBtn">Cancel</button>
+          </div>
+        </div>
       </div>
     </div>
   </template>
@@ -182,8 +226,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.setSchedule();
         }
       },
+      showSchInput: function(e) {
+        this.$.msgSchedule.style.display = "table";
+      },
+      hideSchInput: function(e) {
+        this.$.msgSchedule.style.display = "none";
+      },
       addSchedule: function(e) {
-        debugger;
+        console.log('year : ' + this.$.yearInput.value);
+        console.log('year : ' + this.$.monthInput.value);
+        console.log('year : ' + this.$.dayInput.value);
       },
       kCalendar: function (date) {
         var kCalendar = this.$['kCalendar'];
