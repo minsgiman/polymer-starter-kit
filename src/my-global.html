@@ -19,7 +19,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 {date : "2016-10-25", title : "민석 생일"},
                 {date : "2016-11-5", title : "서령이 언니 결혼식"},
                 {date : "2016-11-10", title : "진영이 생일"},
-                {date : "2016-11-14", title : "ETF 월간 손익 보고"},
+                {date : "2016-11-14", title : "ETF 월간 손익 보고 : -0.2%"},
                 {date : "2016-11-18", title : "1000일"},
                 {date : "2016-12-14", title : "ETF 월간 손익 보고"},
                 {date : "2016-12-15", title : "우석이 생일"},
@@ -100,6 +100,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             ];
 
             var isLogin = false;
+            var isInitFirebase = false;
 
             Polymer({
                 is: 'my-global',
@@ -108,6 +109,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     this.develop = develop;
                     this.blog = blog;
                     this.isLogin = isLogin;
+                    this.isInitFirebase = isInitFirebase;
                 }
             });
         })();

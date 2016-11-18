@@ -73,6 +73,44 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         cursor: pointer;
       }
 
+      #msgLogin {
+        display: table;
+        margin-top: 15px;
+        width: 100%;
+      }
+
+      #msgLogin .msg-wrap {
+        display: table-cell;
+        text-align: center;
+        vertical-align: middle;
+        width: 100%;
+      }
+
+      #msgLogin .msg-wrap .msg-content {
+        display: inline-block;
+        width : 90%;
+        background: #00a4ec;
+      }
+
+      #msgLogin .msg-wrap .msg-content .f-wrap {
+        margin-top: 15px;
+      }
+
+      #msgLogin .msg-wrap .msg-content label {
+        font-size: 18px;
+        margin: 0 10px;
+        color: black;
+      }
+
+      #msgLogin .msg-wrap .msg-content input {
+        width: 90%;
+      }
+
+      #msgLogin .msg-wrap .msg-content button {
+        margin: 20px 10px;
+        width: 35%;
+      }
+
     </style>
 
     <my-global id="global"></my-global>
@@ -104,6 +142,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         <div class="login-btn" on-click="clickLoginBtn">
           <iron-icon class="Navigation-icon" icon="insert-photo"></iron-icon>
           <span class="Navigation-title">로그인</span>
+        </div>
+        <div id="msgLogin" style="display:none;">
+          <div class="msg-wrap">
+            <div class="msg-content">
+              <div class="f-wrap">
+                <label class="email-input">Email</label>
+                <input class="input" id="emailInput" type="text" name="email-input">
+              </div>
+              <div class="f-wrap">
+                <label class="passwd-input">Password</label>
+                <input class="input" id="passwdInput" type="password" name="passwd-input">
+              </div>
+              <button on-click="doLogin" id="doLoginBtn">Login</button>
+              <button on-click="hideLoginMsg" id="hideLoginBtn">Cancel</button>
+            </div>
+          </div>
         </div>
       </app-drawer>
 
@@ -176,6 +230,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       clickLoginBtn: function(e) {
+        this.$.msgLogin.style.display = "table";
+        /*
         if (this.$.global.isLogin === true) {
           this.$.global.isLogin = false;
           this.$$('.login-btn span').innerHTML = "로그인";
@@ -183,7 +239,33 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.$.global.isLogin = true;
           this.$$('.login-btn span').innerHTML = "로그아웃";
         }
+        */
+      },
+
+      hideLoginMsg: function(e) {
+        this.$.msgLogin.style.display = "none";
+      },
+
+      doLogin: function(e) {
+        if (this.$.global.isInitFirebase !== true) {
+          this.initFirebase();
+        }
+        console.log('email : ' + this.$.emailInput.value);
+        console.log('password : ' + this.$.passwdInput.value);
+      },
+
+      initFirebase: function() {
+        var config = {
+          apiKey: "AIzaSyCHgkFFYOILcVRqdQDiWaCzkPc_RIRnn-Q",
+          authDomain: "mskang-64543.firebaseapp.com",
+          databaseURL: "https://mskang-64543.firebaseio.com",
+          storageBucket: "mskang-64543.appspot.com",
+          messagingSenderId: "781696005840"
+        };
+        firebase.initializeApp(config);
+        this.$.global.isInitFirebase = true;
       }
+
     });
   </script>
 </dom-module>
