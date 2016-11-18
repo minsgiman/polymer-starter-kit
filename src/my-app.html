@@ -247,7 +247,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
         var auth = firebase.auth();
         var promise = auth.signInWithEmailAndPassword(this.$.emailInput.value, this.$.passwdInput.value);
-        promise.catch(e => alert(e.message));
+        promise.catch(function(e) {
+          alert(e.message);
+        });
         this.hideLoginMsg();
       },
 
@@ -261,21 +263,23 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         };
         firebase.initializeApp(config);
 
-        firebase.auth().onAuthStateChanged(firebaseUser => {
-            if (firebaseUser) {
-              if (this.$.global.isLogin === false) {
-                alert('Login Success!');
-              }
-              this.$.global.isLogin = true;
-              this.$$('.login-btn span').innerHTML = "로그아웃";
-            } else {
-              if (this.$.global.isLogin === true) {
-                alert('Logout.');
-              }
-              this.$.global.isLogin = false;
-              this.$$('.login-btn span').innerHTML = "로그인";
+        var autoCb = function(firebaseUser) {
+          if (firebaseUser && firebaseUser.email === "mansuckilsan@naver.com") {
+            if (this.$.global.isLogin === false) {
+              alert('Login Success!');
             }
-        });
+            this.$.global.isLogin = true;
+            this.$$('.login-btn span').innerHTML = "로그아웃";
+          } else {
+            if (this.$.global.isLogin === true) {
+              alert('Logout.');
+            }
+            this.$.global.isLogin = false;
+            this.$$('.login-btn span').innerHTML = "로그인";
+          }
+        };
+        firebase.auth().onAuthStateChanged(autoCb.bind(this));
+
         this.$.global.isInitFirebase = true;
       }
 
