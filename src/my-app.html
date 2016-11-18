@@ -65,6 +65,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         font-weight: bold;
       }
 
+      .drawer-list a[disabled="true"] {
+        color: lightgray;
+        !important;
+      }
+
       .drawer-list a span, .login-btn span {
         padding: 0 15px;
       }
@@ -127,18 +132,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <app-drawer id="selector">
         <app-toolbar>Menu</app-toolbar>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-         <a name="calendar" href="/calendar">
-           <iron-icon class="Navigation-icon" icon="perm-contact-calendar"></iron-icon>
-           <span class="Navigation-title">달력</span>
-         </a>
-         <a name="develop" href="/develop">
-           <iron-icon class="Navigation-icon" icon="keyboard"></iron-icon>
-           <span class="Navigation-title">개발</span>
-         </a>
-         <a name="blog" href="/blog">
-           <iron-icon class="Navigation-icon" icon="insert-photo"></iron-icon>
-           <span class="Navigation-title">블로그</span>
-         </a>
+          <a name="develop" href="/develop">
+            <iron-icon class="Navigation-icon" icon="keyboard"></iron-icon>
+            <span class="Navigation-title">개발</span>
+          </a>
+          <a name="calendar" href="/calendar">
+            <iron-icon class="Navigation-icon" icon="perm-contact-calendar"></iron-icon>
+            <span class="Navigation-title">달력</span>
+          </a>
+          <a name="blog" href="/blog" disabled="true">
+            <iron-icon class="Navigation-icon" icon="insert-photo"></iron-icon>
+            <span class="Navigation-title">블로그</span>
+          </a>
         </iron-selector>
         <div class="login-btn" on-click="clickLoginBtn">
           <iron-icon class="Navigation-icon" icon="insert-photo"></iron-icon>
@@ -213,6 +218,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         '_routePageChanged(routeData.page)'
       ],
 
+      attached: function() {
+        this.$$('a[name="blog"]').addEventListener('click', function(event) {
+            if (event.currentTarget.getAttribute('disabled') === "true") {
+                alert("로그인을 해야 합니다.");
+                event.preventDefault();
+                return false;
+            } else {
+                return true;
+            }
+        });
+      },
+
       _routePageChanged: function(page) {
         if (this.$.selector.persistent !== true) {
           this.$.selector.opened = false;
@@ -270,12 +287,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
               alert('Login Success!');
             }
             this.$.global.isLogin = true;
+            this.$$('a[name="blog"]').setAttribute('disabled', false);
             this.$$('.login-btn span').innerHTML = "로그아웃";
           } else {
             if (this.$.global.isLogin === true) {
               alert('Logout.');
             }
             this.$.global.isLogin = false;
+            this.$$('a[name="blog"]').setAttribute('disabled', true);
             this.$$('.login-btn span').innerHTML = "로그인";
           }
         };
