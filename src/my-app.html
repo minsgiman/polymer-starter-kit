@@ -230,16 +230,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
 
       clickLoginBtn: function(e) {
-        this.$.msgLogin.style.display = "table";
-        /*
         if (this.$.global.isLogin === true) {
-          this.$.global.isLogin = false;
-          this.$$('.login-btn span').innerHTML = "로그인";
+          firebase.auth().signOut();
         } else {
-          this.$.global.isLogin = true;
-          this.$$('.login-btn span').innerHTML = "로그아웃";
+          this.$.msgLogin.style.display = "table";
         }
-        */
       },
 
       hideLoginMsg: function(e) {
@@ -250,8 +245,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         if (this.$.global.isInitFirebase !== true) {
           this.initFirebase();
         }
-        console.log('email : ' + this.$.emailInput.value);
-        console.log('password : ' + this.$.passwdInput.value);
+        var auth = firebase.auth();
+        var promise = auth.signInWithEmailAndPassword(this.$.emailInput.value, this.$.passwdInput.value);
+        promise.catch(e => alert(e.message));
+        this.hideLoginMsg();
       },
 
       initFirebase: function() {
@@ -263,6 +260,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           messagingSenderId: "781696005840"
         };
         firebase.initializeApp(config);
+
+        firebase.auth().onAuthStateChanged(firebaseUser => {
+            if (firebaseUser) {
+              if (this.$.global.isLogin === false) {
+                alert('Login Success!');
+              }
+              this.$.global.isLogin = true;
+              this.$$('.login-btn span').innerHTML = "로그아웃";
+            } else {
+              if (this.$.global.isLogin === true) {
+                alert('Logout.');
+              }
+              this.$.global.isLogin = false;
+              this.$$('.login-btn span').innerHTML = "로그인";
+            }
+        });
         this.$.global.isInitFirebase = true;
       }
 
