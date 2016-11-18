@@ -255,7 +255,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
       showSchInput: function(e) {
-        this.$.msgSchedule.style.display = "table";
+        if (this.$.global.isLogin === true) {
+          this.$.msgSchedule.style.display = "table";
+        } else {
+          alert("로그인을 해야 합니다.");
+        }
       },
       hideSchInput: function(e) {
         this.$.msgSchedule.style.display = "none";
@@ -382,22 +386,24 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       setSchedule: function() {
         var i, len, schedule, elDay, elSchedule, date, year, month, day;
 
-        /* Set anniversary mark */
-        len = this.$.global.schedule.length;
-        for (i = 0; i < len; i+=1) {
-          schedule = this.$.global.schedule[i];
-          date = schedule.date.split('-');
-          year = parseInt(date[0]);
-          month = parseInt(date[1]);
-          day = parseInt(date[2]);
-          if (year === this.currentYear && month === this.currentMonth) {
-            elDay = this.$.kCalendar.querySelector('.day' + day);
-            if (elDay) {
-              elDay.classList.add('anniversary');
+        if (this.$.global.isLogin === true) {
+          /* Set anniversary mark */
+          len = this.$.global.schedule.length;
+          for (i = 0; i < len; i+=1) {
+            schedule = this.$.global.schedule[i];
+            date = schedule.date.split('-');
+            year = parseInt(date[0]);
+            month = parseInt(date[1]);
+            day = parseInt(date[2]);
+            if (year === this.currentYear && month === this.currentMonth) {
+              elDay = this.$.kCalendar.querySelector('.day' + day);
+              if (elDay) {
+                elDay.classList.add('anniversary');
+              }
+              elSchedule = document.createElement('li');
+              elSchedule.innerHTML = schedule.date + ' : ' + schedule.title;
+              Polymer.dom(this.$.schedule).appendChild(elSchedule);
             }
-            elSchedule = document.createElement('li');
-            elSchedule.innerHTML = schedule.date + ' : ' + schedule.title;
-            Polymer.dom(this.$.schedule).appendChild(elSchedule);
           }
         }
 
