@@ -69,7 +69,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
-    <my-global id="global"></my-global>
     <div class="card">
       <nav class="nav">
         <table id="table">
@@ -92,6 +91,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       properties: {
       },
       created: function() {
+        this.elApp = document.querySelector('my-app');
       },
       attached: function() {
         this.makeSubItem();
@@ -111,7 +111,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
 
         /* Find Sub Contents */
-        contentsData = this.$.global.blog;
+        contentsData = this.elApp.$.global.blog;
         if (!contentsData) {
           console.log('There is no contentsData');
           return;

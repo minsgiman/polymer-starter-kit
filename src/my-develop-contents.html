@@ -69,7 +69,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             }
         </style>
 
-        <my-global id="global"></my-global>
         <div class="card">
             <nav class="nav">
                 <table id="table">
@@ -98,6 +97,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                     observer: 'makeSubItem'
                 }
             },
+            created: function() {
+                this.elApp = document.querySelector('my-app');
+            },
             clickHandler: function(event) {
                 document.querySelector("my-app").fileUrl = event.currentTarget.getAttribute('data-url');
             },
@@ -113,10 +115,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 }
 
                 /* Find Sub Contents */
-                len = this.$.global.develop.length;
+                len = this.elApp.$.global.develop.length;
                 for (i = 0; i < len; i+=1) {
-                    if (this.$.global.develop[i].id === this.developSubject) {
-                        contentsData = this.$.global.develop[i];
+                    if (this.elApp.$.global.develop[i].id === this.developSubject) {
+                        contentsData = this.elApp.$.global.develop[i];
                         break;
                     }
                 }

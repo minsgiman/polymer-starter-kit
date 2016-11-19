@@ -41,22 +41,34 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
     </style>
 
-    <my-global id="global"></my-global>
     <div id="page" class="card"></div>
   </template>
 
   <script>
     Polymer({
       is: 'my-develop',
+      properties: {
+        elApp: {
+          type: Object
+        }
+      },
       clickHandler: function(event) {
-        document.querySelector("my-app").subMenu = event.currentTarget.getAttribute('data-sub');
+        document.querySelector('my-app').subMenu = event.currentTarget.getAttribute('data-sub');
+      },
+      created: function() {
+        this.elApp = document.querySelector('my-app');
       },
       attached: function() {
         this.makeSubLinkItem();
       },
       makeSubLinkItem: function () {
-        var i, developData = this.$.global.develop, len = developData.length;
+        var i, developData, len;
         var aTag, ironIconTag, hTag, page = this.$.page;
+
+        developData = this.elApp.$.global.develop;
+        if (developData) {
+          len = developData.length;
+        }
 
         /* Init Page */
         while (page.hasChildNodes())

@@ -9,8 +9,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../bower_components/polymer/polymer.html">
-<link rel="import" href="shared-styles.html">
 <link rel="import" href="my-global.html">
+<link rel="import" href="shared-styles.html">
 
 <dom-module id="my-calendar">
   <template>
@@ -179,7 +179,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       }
 
     </style>
-    <my-global id="global"></my-global>
     <div class="card">
       <div on-click="btnClicked" id="kCalendar"></div>
       <button on-click="showSchInput" id="showSchInputBtn">Add Schedule</button>
@@ -216,19 +215,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       is: 'my-calendar',
       properties: {
         currentYear: {
-          type: Number
+          type: Number,
+          value: 0
         },
         currentMonth: {
-          type: Number
+          type: Number,
+          value: 0
         },
         currentDay: {
-          type: Number
+          type: Number,
+          value: 0
+        },
+        isLogin: {
+          type: Boolean,
+          value: false,
+          reflectToAttribute: true,
+          observer: '_authStateChanged'
         }
       },
       created: function() {
-        this.currentYear = 0;
-        this.currentMonth = 0;
-        this.currentDay = 0;
+        this.elApp = document.querySelector('my-app');
       },
       attached: function() {
         this.kCalendar();
@@ -239,6 +245,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           this.kCalendar();
           this.setSchedule();
         }
+      },
+      _authStateChanged: function() {
+        this.kCalendar();
+        this.setSchedule();
       },
       btnClicked: function(e) {
         var date, className = e.target.className;
@@ -255,7 +265,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         }
       },
       showSchInput: function(e) {
-        if (this.$.global.isLogin === true) {
+        if (this.isLogin === true) {
           this.$.msgSchedule.style.display = "table";
         } else {
           alert("로그인을 해야 합니다.");
@@ -386,11 +396,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       setSchedule: function() {
         var i, len, schedule, elDay, elSchedule, date, year, month, day;
 
-        if (this.$.global.isLogin === true) {
+        if (this.isLogin === true) {
           /* Set anniversary mark */
-          len = this.$.global.schedule.length;
+          len = this.elApp.$.global.schedule.length;
           for (i = 0; i < len; i+=1) {
-            schedule = this.$.global.schedule[i];
+            schedule = this.elApp.$.global.schedule[i];
             date = schedule.date.split('-');
             year = parseInt(date[0]);
             month = parseInt(date[1]);
