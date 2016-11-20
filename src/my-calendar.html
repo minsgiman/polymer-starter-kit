@@ -231,6 +231,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           value: false,
           reflectToAttribute: true,
           observer: '_authStateChanged'
+        },
+        scheduleList: {
+          type: Array,
+          value: null,
+          reflectToAttribute: true
         }
       },
       created: function() {
@@ -394,9 +399,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         Polymer.dom(this.$.kCalendar).appendChild(table);
       },
       setSchedule: function() {
-        var i, len, schedule, elDay, elSchedule, date, year, month, day;
+        var i, len, schedule, elDay, elSchedule, date, year, month, day, dbRefSchedules;
 
         if (this.isLogin === true) {
+          if (this.scheduleList === null) {
+            dbRefSchedules = firebase.database().ref().child('schedules');
+            dbRefSchedules.on('value', function(snap) {
+              //TODO: set this.scheduleList
+              //this.scheduleList = [];
+              dbRefSchedules.off('value');
+            });
+
+            //TODO: Set Data
+            /*
+            firebase.database().ref('schedules/' + userId).set({
+              username: name,
+              email: email
+            });
+            */
+          }
+
           /* Set anniversary mark */
           len = this.elApp.$.global.schedule.length;
           for (i = 0; i < len; i+=1) {

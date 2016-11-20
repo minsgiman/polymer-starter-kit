@@ -132,15 +132,15 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <app-drawer id="selector">
         <app-toolbar>Menu</app-toolbar>
         <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-          <a name="develop" href="/develop">
+          <a on-click="hideLoginMsg" name="develop" href="/develop">
             <iron-icon class="Navigation-icon" icon="keyboard"></iron-icon>
             <span class="Navigation-title">개발</span>
           </a>
-          <a name="calendar" href="/calendar">
+          <a on-click="hideLoginMsg" name="calendar" href="/calendar">
             <iron-icon class="Navigation-icon" icon="perm-contact-calendar"></iron-icon>
             <span class="Navigation-title">달력</span>
           </a>
-          <a name="blog" href="/blog" disabled="true">
+          <a on-click="hideLoginMsg" name="blog" href="/blog" disabled="true">
             <iron-icon class="Navigation-icon" icon="insert-photo"></iron-icon>
             <span class="Navigation-title">블로그</span>
           </a>
