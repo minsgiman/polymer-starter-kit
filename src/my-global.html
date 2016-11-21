@@ -13,23 +13,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 <dom-module id="my-global">
     <script>
         (function() {
-            var schedule = [
-                {date : "2016-10-3", title : "에버랜드 가는 날"},
-                {date : "2016-10-14", title : "ETF 월간 손익 보고 : +3.1%"},
-                {date : "2016-10-25", title : "민석 생일"},
-                {date : "2016-11-5", title : "서령이 언니 결혼식"},
-                {date : "2016-11-10", title : "진영이 생일"},
-                {date : "2016-11-14", title : "ETF 월간 손익 보고 : -0.2%"},
-                {date : "2016-11-18", title : "1000일"},
-                {date : "2016-12-14", title : "ETF 월간 손익 보고"},
-                {date : "2016-12-15", title : "우석이 생일"},
-                {date : "2017-1-14", title : "ETF 월간 손익 보고"},
-                {date : "2017-1-26", title : "아버지 생일"},
-                {date : "2017-1-28", title : "설날"},
-                {date : "2017-2-14", title : "ETF 월간 손익 보고"},
-                {date : "2017-2-23", title : "3주년"},
-            ];
-
             var develop = [
                 {
                     id : 'javascript',
@@ -104,7 +87,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             Polymer({
                 is: 'my-global',
                 created: function() {
-                    this.schedule = schedule;
                     this.develop = develop;
                     this.blog = blog;
                     this.isInitFirebase = isInitFirebase;
