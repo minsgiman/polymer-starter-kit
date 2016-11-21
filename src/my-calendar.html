@@ -280,10 +280,19 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.$.msgSchedule.style.display = "none";
       },
       addSchedule: function(e) {
-        var data = {
+        var len, data = {
           date: this.$.yearInput.value + '-' + this.$.monthInput.value + '-' + this.$.dayInput.value,
           title: this.$.titleInput.value
         };
+
+        if (this.scheduleList) {
+          len = this.scheduleList.length;
+          firebase.database().ref('schedules/' + len).set(data);
+          this.scheduleList.push(data);
+          this.setSchedule();
+        } else {
+          alert("데이터를 받아오지 못하였습니다.");
+        }
         this.$.msgSchedule.style.display = "none";
       },
       kCalendar: function (date) {
@@ -402,39 +411,39 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var i, len, schedule, elDay, elSchedule, date, year, month, day, dbRefSchedules;
 
         if (this.isLogin === true) {
-          if (this.scheduleList === null) {
+          if (!this.scheduleList) {
             dbRefSchedules = firebase.database().ref().child('schedules');
-            dbRefSchedules.on('value', function(snap) {
-              //TODO: set this.scheduleList
-              //this.scheduleList = [];
-              dbRefSchedules.off('value');
-            });
 
-            //TODO: Set Data
-            /*
-            firebase.database().ref('schedules/' + userId).set({
-              username: name,
-              email: email
-            });
-            */
-          }
-
-          /* Set anniversary mark */
-          len = this.elApp.$.global.schedule.length;
-          for (i = 0; i < len; i+=1) {
-            schedule = this.elApp.$.global.schedule[i];
-            date = schedule.date.split('-');
-            year = parseInt(date[0]);
-            month = parseInt(date[1]);
-            day = parseInt(date[2]);
-            if (year === this.currentYear && month === this.currentMonth) {
-              elDay = this.$.kCalendar.querySelector('.day' + day);
-              if (elDay) {
-                elDay.classList.add('anniversary');
+            var valueCb = function(snap) {
+              if (snap) {
+                this.scheduleList = snap.val();
+                if (this.scheduleList) {
+                  this.setSchedule();
+                } else {
+                  this.scheduleList = null;
+                }
               }
-              elSchedule = document.createElement('li');
-              elSchedule.innerHTML = schedule.date + ' : ' + schedule.title;
-              Polymer.dom(this.$.schedule).appendChild(elSchedule);
+              dbRefSchedules.off('value');
+            };
+            dbRefSchedules.on('value', valueCb.bind(this));
+          } else {
+            /* Set anniversary mark */
+            len = this.scheduleList.length;
+            for (i = 0; i < len; i+=1) {
+              schedule = this.scheduleList[i];
+              date = schedule.date.split('-');
+              year = parseInt(date[0]);
+              month = parseInt(date[1]);
+              day = parseInt(date[2]);
+              if (year === this.currentYear && month === this.currentMonth) {
+                elDay = this.$.kCalendar.querySelector('.day' + day);
+                if (elDay) {
+                  elDay.classList.add('anniversary');
+                }
+                elSchedule = document.createElement('li');
+                elSchedule.innerHTML = schedule.date + ' : ' + schedule.title;
+                Polymer.dom(this.$.schedule).appendChild(elSchedule);
+              }
             }
           }
         }
