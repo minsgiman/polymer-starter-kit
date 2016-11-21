@@ -75,12 +75,88 @@
          greet(); // Hello Anon!
 
 .
+
+### Modules
+
+ - export, import를 사용할 수 있다.
+ 
+        //Math.js
+        export PI = 3.14;
+        
+        var _sqrt = function (s, x, last) {
+            return s + x + last;
+        };
+        export sqrt = function (s) {
+            return _sqrt(s, s/2.0, 0.0);
+        };
+        export square(x) {
+            return x * x;
+        };
+        
+        
+        //Main.js
+        import {PI, sqrt, square} from './Math';
+        console.log(PI); //3.14
+        console.log(sqrt(10)); //15
+        console.log(square(11)); //121
+
+
+        //Main2.js
+        import * as Math from './Math';
+        console.log(Math.PI); //3.14
+        console.log(Math.sqrt(10)); //15
+        console.log(Math.square(11)); //121
+
+. 
+ 
+### Promise
+  
+  - Promise를 사용할 수 있다.
+  
+        function timeout(duration = 0) {  
+            return new Promise((resolve, reject) => {
+                setTimeout(() => Math.random() > 0.5 ? resolve() : reject(), duration);
+            });
+        }
+        
+        function log() {
+            console.log('done');
+        }
+        
+        function error() {
+            console.log('error');
+        }
+        
+        //resolve면 done, reject면 error를 표시
+        timeout(100).then(log).catch(error);
+  
+.  
+ 
+### let/const
+         
+ - Javascript의 경우, 변수가 존재하는 스코프를 만들기 위해 function으로 감쌀 필요가 있었는데, let/const를 사용하면, function만 아니라 괄호{…}로 감싼 구역도 스코프가 된다. (블록 스코프)
+   
+        {
+            var a = 10;
+            let b = 20;
+            const tmp = a;
+            a = b;
+            b = tmp;
+        }
+        // a는 블록 바깥에서 참조 가능
+        // b, tmp는 바깥에서 참조 불가능
+        
+.         
          
 ***
  
 ### 참조
+
+  - ECMAScript 6 Features
+  
+  <http://seokjun.kr/ecmascript-6-features/>
  
   - Six Tiny But Awesome ES6 Features
   
   <https://davidwalsh.name/es6-features>
-
+  
