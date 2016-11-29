@@ -280,15 +280,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         this.$.msgSchedule.style.display = "none";
       },
       addSchedule: function(e) {
-        var len, data = {
-          date: this.$.yearInput.value + '-' + this.$.monthInput.value + '-' + this.$.dayInput.value,
+        var i, len, targetIdx = -1, date = this.$.yearInput.value + '-' + this.$.monthInput.value + '-' + this.$.dayInput.value;
+        var schObj = {
+          date: date,
           title: this.$.titleInput.value
         };
 
         if (this.scheduleList) {
           len = this.scheduleList.length;
-          firebase.database().ref('schedules/' + len).set(data);
-          this.scheduleList.push(data);
+          /* Find same date schedule */
+          for (i = 0; i < len; i+=1) {
+            if (this.scheduleList[i].date === date) {
+              targetIdx = i;
+            }
+          }
+
+          if (targetIdx !== -1) { //Find same date
+            firebase.database().ref('schedules/' + targetIdx).set(schObj);
+            this.scheduleList[targetIdx] = schObj;
+          } else {
+            firebase.database().ref('schedules/' + len).set(schObj);
+            this.scheduleList.push(schObj);
+          }
+
           this.setSchedule();
         } else {
           alert("데이터를 받아오지 못하였습니다.");
