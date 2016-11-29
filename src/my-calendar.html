@@ -297,7 +297,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       },
       kCalendar: function (date) {
         var kCalendar = this.$['kCalendar'];
-        var schedule = this.$['schedule'];
 
         if (!kCalendar) {
             return;
@@ -306,10 +305,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         while (kCalendar.hasChildNodes())
         {
           kCalendar.removeChild(kCalendar.firstChild);
-        }
-        while (schedule.hasChildNodes())
-        {
-          schedule.removeChild(schedule.firstChild);
         }
 
         if( typeof( date ) !== 'undefined' ) {
@@ -427,6 +422,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             };
             dbRefSchedules.on('value', valueCb.bind(this));
           } else {
+            var elScheduleWrap = this.$.schedule;
+
+            /* Remove all anniversary */
+            while (elScheduleWrap.hasChildNodes())
+            {
+              elScheduleWrap.removeChild(elScheduleWrap.firstChild);
+            }
             /* Set anniversary mark */
             len = this.scheduleList.length;
             for (i = 0; i < len; i+=1) {
@@ -442,7 +444,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 }
                 elSchedule = document.createElement('li');
                 elSchedule.innerHTML = schedule.date + ' : ' + schedule.title;
-                Polymer.dom(this.$.schedule).appendChild(elSchedule);
+                Polymer.dom(elScheduleWrap).appendChild(elSchedule);
               }
             }
           }
