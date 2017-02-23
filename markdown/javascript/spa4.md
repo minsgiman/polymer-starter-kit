@@ -19,10 +19,16 @@
 ##### 2. 컴포넌트 API를 통해 EventHandler연결, Data Get, Set등을 제공한다.
 
     /* EventHandler 연결 */
+    //event 처리할 대상(버튼 등)이 동적으로 바뀌지 않을 경우
+    //해당 버튼 등에 eventHandler를 직접 연결해주는 component API
     objForm.setSubmitHandler(function(event) {
         srvService.deleteAllPortForwardingRules();
         event.preventDefault();
     });
+    
+    //event 처리할 대상(버튼 등)이 동적으로 바뀔 경우
+    //부모에게 이벤트를 위임해서 처리하도록 하는 component API
+    objList.setBtnEventDelegator(fnRuleRemoveBtnHandler);
     
     /* 컴포넌트 Data Set */
     objForm.setValueWithId('input', SETUP_TAG_ID, data.destination);
