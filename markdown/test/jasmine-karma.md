@@ -10,20 +10,20 @@
 ### 아래 코드는 Jasmine으로 작성한 테스트 스크립트이다.
 
         describe("software update check", function () {
-           var isGetSwUpdateEvent = false;
+           var isGetEvent = false;
            beforeEach(function(done) {
-               startDetectWithType(TSWUSpec.ESPEC_SATDVBSSU)
+               startDetectWithType(1)
                .then(function() {
-                   isGetSwUpdateEvent = true;
+                   isGetEvent = true;
                    done();
                }, function() {
-                   isGetSwUpdateEvent = false;
+                   isGetEvent = false;
                    done();
                });
            }, 10 * 1000);
            
            it("check get software update event", function () {
-             expect(isGetSwUpdateEvent).toBeTruthy();
+             expect(isGetEvent).toBeTruthy();
            });
         });
                  
@@ -66,7 +66,7 @@
 
 ### 3. Matcher
  
- - 위 예제의 expect(isGetSwUpdateEvent).toBeTruthy()에서 isGetSwUpdateEvent 변수가 true인지를 테스트하는데 이 부분을 Matcher라고 부른다.
+ - 위 예제의 expect(isGetEvent).toBeTruthy()에서 isGetEvent 변수가 true인지를 테스트하는데 이 부분을 Matcher라고 부른다.
   
  - 자스민에는 내장된 많은 수의 Matcher가 있고 필요하다면 자신만의 Matcher를 만들 수 있다.
 
@@ -100,7 +100,7 @@
 
  - Karma는 내장된 서버를 가지고 있어, Karma 서버를 실행하고, 원하는 browser로 연결하여 test를 수행하게 된다. 
 
- - 어떤 browser를 사용할지는 아래 예제의 browsers: ["STBBrowser"] 에서 설정할 수 있다.
+ - 어떤 browser를 사용할지는 아래 예제의 browsers: ["Browser"] 에서 설정할 수 있다.
 
 ### Karma 환경 설정
 
@@ -119,13 +119,13 @@
                 files: [
                     './node_modules/underscore/underscore.js',
                     './node_modules/jquery/dist/jquery.js',
-                    './tests/oipf/www/spec/*.spec.js',
-                    './tests/oipf/www/spec/*.html'
+                    './tests/www/spec/*.spec.js',
+                    './tests/www/spec/*.html'
                 ],
                 preprocessors: {},
                 plugins: [
                     require('karma-jasmine'),
-                    require('../../lib/stbBrowser'),
+                    require('../../lib/Browser'),
                     require('karma-jenkins-reporter'),
                     require('karma-junit-reporter'),
                     require('karma-htmlfile-reporter')
@@ -142,16 +142,16 @@
                 colors: true,
                 logLevel: config.LOG_INFO,
                 autoWatch: false,
-                browsers: ['STBBrowser'],
+                browsers: ['Browser'],
                 customLaunchers: {
-                    STBBrowser: {
-                        base: 'STBBrowserBase',
+                    Browser: {
+                        base: 'BrowserBase',
                         root: "../..",
                         data : data
                     }
                 },
                 proxies: {
-                    '/spec/': '/base/tests/oipf/www/spec/'
+                    '/spec/': '/base/tests/www/spec/'
                 },
                 captureTimeout: 600000,
                 browserNoActivityTimeout: 600000,
