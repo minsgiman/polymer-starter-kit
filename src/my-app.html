@@ -78,6 +78,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         cursor: pointer;
       }
 
+      .date-record {
+        margin-left: 28px;
+        margin-top: 10px;
+      }
+
+      .date-text {
+        color: #e808e1;
+        font-size: 18px;
+      }
+
+      .marginTag {
+        margin-top: 200px;
+      }
+
       #msgLogin {
         display: table;
         margin-top: 15px;
@@ -149,6 +163,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <iron-icon class="Navigation-icon" icon="insert-photo"></iron-icon>
           <span class="Navigation-title">로그인</span>
         </div>
+
         <div id="msgLogin" style="display:none;">
           <div class="msg-wrap">
             <div class="msg-content">
@@ -165,6 +180,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             </div>
           </div>
         </div>
+        <div class="marginTag"></div>
+        <div class="date-record">
+          <span id="dateFromLove" class="date-text" >{{loveDate}}일</span> from 연애 시작
+        </div>
+        <div class="date-record">
+          <span id="dateFromMarry" class="date-text">{{marryDate}}일</span> from 결혼
+        </div>
+
       </app-drawer>
 
       <!-- Main content -->
@@ -216,6 +239,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           type: Boolean,
           value: false,
           reflectToAttribute: true
+        },
+        loveDate: {
+          type: Number,
+          value: 0,
+          reflectToAttribute: true
+        },
+        marryDate: {
+          type: Number,
+          value: 0,
+          reflectToAttribute: true
         }
       },
 
@@ -233,6 +266,18 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
                 return true;
             }
         });
+
+        var tempDate = new Date();
+        var curTimestamp = tempDate.getTime();
+        tempDate.setYear(2014);
+        tempDate.setMonth(2 - 1);
+        tempDate.setDate(23);
+        this.loveDate = Math.floor((curTimestamp - tempDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
+
+        tempDate.setYear(2017);
+        tempDate.setMonth(10 - 1);
+        tempDate.setDate(29);
+        this.marryDate = Math.floor((curTimestamp - tempDate.getTime()) / (1000 * 60 * 60 * 24)) + 1;
       },
 
       _routePageChanged: function(page) {

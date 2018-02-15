@@ -8,7 +8,7 @@
 
 .
 
-#### email과 password로 로그인
+#### email과 password로 로그인한다.
 
  - firebase의 auth namespace를 사용
  - signInWithEmailAndPassword 를 통하여 인증시도
