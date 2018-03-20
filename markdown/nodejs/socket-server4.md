@@ -14,6 +14,7 @@
 #### 2. ioredis 모듈
 
  - redis는 node.js 호환모듈이 잘 지원되어서 사용하기 편하다. ioredis 모듈을 사용하였다.
+ - 아래 예제와 같이 Cluster로 구성된 Redis 서버의 client를 간단하게 생성할 수 있다.
  - redis에서는 pattern matching을 통해서 다수의 Topic에서 message 를 subscribe할 수 있다. (예제 코드 'ch:*')
  - redis커맨드 사용방법은 아래 redis공식 홈페이지에서 확인한다. <https://redis.io/commands>
  
