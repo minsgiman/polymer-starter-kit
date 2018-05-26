@@ -1,7 +1,7 @@
-# kafka
+# 분산 메시징 시스템 Kafka
  
 ***
-
+.
 
 #### kafka의 특징
 
@@ -14,23 +14,30 @@
   - 메시지를 기본적으로 메모리에 저장하는 기존 메시징 시스템과 달리 메시지를 파일 시스템에 저장한다. 따라서 메시지를 많이 쌓아두어도 성능이 크게 감소하지 않는다.
   
   - 기존 메시징 시스템은 broker가 consumer에게 메시지를 push해주는 방식인데, Kafka는 consumer가 broker로부터 직접 메시지를 가지고 가는 pull 방식으로 동작. 따라서 broker의 consumer와 메시지 관리에 대한 부담이 경과되었다.
-  
+
+.  
 
 #### kafka의 기본 구성 요소와 동작 
 
  - Kafka는 publish-subscribe 모델을 기반으로 동작하며, 크게 producer, consumer, broker 로 구성된다.
  
  - Kafka의 broker는 topic을 기준으로 메시지를 관리한다. Broker가 전달받은 메시지를 topic별로 분류하여 쌓아놓으면, 해당 topic을 구독하는 consumer들이 메시지를 가져가서 처리하게 된다.
+  
+.
    
 #### Topic
 
  - Topic은 메시지의 논리적 그룹. 카프카에 저장되는 데이터를 토픽이라는 이름으로 구분하기 위해서 사용합니다.
+ 
+. 
  
 #### Partition
 
  - Kafka Topic의 병렬처리 단위 
  
  - partition 분할을 통해 데이터 용량의 확장과 병렬처리의 잇점을 얻을 수 있다.
+ 
+. 
  
 #### Partition의 복제
 
@@ -43,13 +50,15 @@
  - 각 partition에 대한 읽기와 쓰기는 모두 leader에서 이루어지며, follower는 단순히 leader를 복제하고, 만약 leader에 장애가 발생할 경우 follower중 하나가 새로운 leader가 된다. 
  
 
+.
+
 #### Cluster 
 
  - Kafka는 확장성과 고가용성을 위하여 broker들이 클러스터로 구성되어 동작하도록 설계됨. 심지어 broker가 1개 밖에 없을 때에도 클러스터로써 동작
  
  - 클러스터 내의 broker에 대한 분산처리는 ZooKeeper가 담당
  
- - 
+. 
  
 #### 파일 시스템을 활용한 고성능 디자인
 
