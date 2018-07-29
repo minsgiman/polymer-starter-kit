@@ -1,4 +1,4 @@
-# JavaScript Engine과 Event Loop 그리고 Event Queue
+# Javascript의 Event Loop
 
 ***
 

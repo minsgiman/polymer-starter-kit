@@ -1,4 +1,4 @@
-# Gulp로 model빌드 및 requireJS optimize
+# Gulp를 통한 model명 별로 빌드하기
 
 ***
 
@@ -17,8 +17,9 @@
             
 .
 
-### model 빌드 및 requireJS optimize
+### model명 별로 빌드 및 requireJS optimize
 
+ - model에 따라 index.html 과 config.json이 따로 존재한다.
  - rjs.optimize 를 사용하여 코드압축 (baseUrl은 대상 소스 or directory이고, dir은 결과물이 생성되는 위치이다.) 
  - model명 parameter를 전달 받아, 해당 model의 소스를 복사하고, 나머지 model은 삭제한다.
 

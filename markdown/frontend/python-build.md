@@ -1,8 +1,8 @@
-# Python으로 Model Config JSON 빌드
+# Python으로 Model별 config.json 빌드
 
 ***
 
-### 각 Model의 JSON Data List가 달라지지 않도록 중앙에서 Control 하기 위하여 구현
+### 각 Model마다 관리하는 JSON 포맷이 달라지지 않도록 중앙에서 Control 하기 위하여 구현하였다.
 
  - JSON file을 읽는다.
  - Config List에 있는 내용이 빠져 있다면, default value로 추가해준다.

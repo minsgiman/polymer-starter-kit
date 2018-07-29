@@ -2,20 +2,20 @@
 
 ***
 
-### 1. Client-side 렌더링
+### 1. Client-side 렌더링까지 순서
 
-  - Download HTML
-  - Download Javascript
-  - Evaluate Javascript
-  - Fetch Data from API
-  - User see Content
+  - 1) Download HTML
+  - 2) Download Javascript
+  - 3) Evaluate Javascript
+  - 4) Fetch Data from API
+  - 5) User see Content
    
 .
 
-### 2. Server-side 렌더링
+### 2. Server-side 렌더링까지 순서
   
-  - Download HTML
-  - User see Content
+  - 1) Download HTML
+  - 2) User see Content
    
 .
 
@@ -35,7 +35,7 @@
    
 .
    
-### 5. 좋은 방법은 Client-side, Server-side 렌더링을 혼용하여서 사용
+### 5. Client-side, Server-side 렌더링을 혼용하여서 사용
 
    - 초기 렌더링은 Server-side에서 그 이후는 Client-side에서
    - 이 때 일관성을 보장하기 위해 서버측과 클라이언측은 똑같은 렌더링 코드를 공유해야 한다. (react의 Isomorphic Javascript 개념)
